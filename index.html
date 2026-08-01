@@ -6,6 +6,7 @@
     <title>SIPANDU SPENPOL - SMPN 1 Poli-Polia</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Gaya CSS sama seperti sebelumnya */
         :root { --primary-color: #0c4a6e; --secondary-color: #0284c7; --bg-color: #f0f4f8; --text-main: #334155; --border-color: #cbd5e1; }
         body { font-family: 'Inter', sans-serif; padding: 20px; background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         .container { width: 100%; max-width: 550px; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); box-sizing: border-box; }
@@ -14,27 +15,24 @@
         .header-teks h2 { margin: 0; color: var(--primary-color); font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
         .header-teks p { margin: 8px 0 0 0; color: #64748b; font-size: 14px; }
         
-        /* Navigasi Tab Menu */
         .tab-menu { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
         .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; font-weight: 600; color: #64748b; cursor: pointer; border-radius: 8px; font-size: 14px; transition: 0.3s; }
         .tab-btn.aktif { background: var(--primary-color); color: white; }
         
-        /* Form & Input */
         label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--primary-color); font-size: 14px; }
         .form-group { margin-bottom: 15px; }
         input, select, textarea { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-family: 'Inter', sans-serif; font-size: 15px; background-color: #f8fafc; transition: 0.3s; }
+        input[type="file"] { background-color: #fff; padding: 10px; border: 1px dashed var(--secondary-color); cursor: pointer; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--secondary-color); background-color: #ffffff; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+        
         button.btn-submit { width: 100%; padding: 14px; background-color: var(--secondary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; margin-top: 10px; transition: 0.3s; }
         button.btn-submit:hover { background-color: var(--primary-color); }
         
-        /* Hasil Notifikasi */
         .notif-box { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 14px; display: none; }
         .sukses { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; text-align: center;}
         .error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; text-align: center;}
         .hasil-cek { background-color: #f8fafc; border: 1px solid var(--border-color); }
-        
         .tiket-big { font-size: 24px; font-weight: bold; color: var(--primary-color); margin: 10px 0; padding: 10px; background: white; border-radius: 5px; border: 2px dashed var(--secondary-color); display: inline-block; letter-spacing: 1px;}
-        
         .footer { text-align: center; margin-top: 25px; font-size: 12px; color: #94a3b8; }
         .sembunyi { display: none; }
     </style>
@@ -81,6 +79,14 @@
                 <label>Detail Laporan / Permintaan:</label>
                 <textarea name="Isi Laporan" rows="4" required></textarea>
             </div>
+            
+            <!-- TAMBAHAN: FITUR UPLOAD FOTO -->
+            <div class="form-group">
+                <label>Lampirkan Foto Bukti (Opsional):</label>
+                <input type="file" id="inputFile" accept="image/*" style="font-size: 13px;">
+                <p style="font-size: 11px; color: #64748b; margin-top: 5px; margin-bottom: 0;">*Format: JPG/PNG. Maksimal 2MB.</p>
+            </div>
+
             <button type="submit" id="btnKirim" class="btn-submit">Kirim Laporan Sekarang</button>
         </form>
         <div id="pesanLapor" class="notif-box"></div>
@@ -93,18 +99,15 @@
             <input type="text" id="inputTiket" placeholder="Contoh: SPL-202681-4592" required>
         </div>
         <button onclick="cekStatus()" id="btnCek" class="btn-submit">Lacak Laporan</button>
-        
-        <div id="pesanCek" class="notif-box hasil-cek">
-            <!-- Hasil pencarian akan muncul di sini -->
-        </div>
+        <div id="pesanCek" class="notif-box hasil-cek"></div>
     </div>
 
     <div class="footer">&copy; 2026 SMP Negeri 1 Poli-Polia.</div>
 </div>
 
 <script>
-    // MASUKKAN URL GOOGLE SCRIPT TERBARU ANDA DI SINI
-    const scriptURL = 'https://script.google.com/macros/s/AKfycby6eZy85aUT57_aZSykurrupK2PYijYosRzSxMB1mjjfum9SihTERuC1a6c_LiU3_N3RA/exec';
+    // MASUKKAN URL GOOGLE SCRIPT TERBARU ANDA DI SINI (Versi Baru)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxHGswQ_Rz2URF7tGFZHP4YdIVGzo-H_zPdMm4N1nTe2h75avx_YvXRTFiXiGNSMykIAg/exec';
     
     // Fungsi Pindah Tab
     function gantiTab(tab) {
@@ -122,25 +125,69 @@
         }
     }
 
-    // Fungsi Kirim Laporan
+    // Fungsi Pengolahan Foto & Pengiriman Form
     const form = document.forms['formPengaduan'];
     const btnKirim = document.getElementById('btnKirim');
     const pesanLapor = document.getElementById('pesanLapor');
+    const fileInput = document.getElementById('inputFile');
 
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        btnKirim.innerHTML = "Memproses... ⏳";
+        btnKirim.innerHTML = "Memproses Pengiriman... ⏳";
         btnKirim.disabled = true;
         pesanLapor.style.display = "none";
         pesanLapor.className = "notif-box";
 
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        let formData = new FormData(form);
+
+        // Jika ada foto yang di-upload
+        if (fileInput.files.length > 0) {
+            btnKirim.innerHTML = "Mengunggah Foto... 📷";
+            const file = fileInput.files[0];
+            
+            // Validasi ukuran (maksimal 2MB = 2000000 bytes)
+            if(file.size > 2000000){
+                pesanLapor.innerHTML = "❌ Gagal: Ukuran foto terlalu besar (Maksimal 2MB).";
+                pesanLapor.classList.add("error");
+                pesanLapor.style.display = "block";
+                btnKirim.innerHTML = "Kirim Laporan Sekarang";
+                btnKirim.disabled = false;
+                return;
+            }
+
+            // Membaca file gambar mengubahnya jadi Base64
+            let reader = new FileReader();
+            reader.onload = function(event) {
+                // event.target.result berisi: "data:image/png;base64,iVBORw0KGgo..."
+                // Kita potong teks "data:image/...;base64," agar tersisa kode dasarnya saja
+                let base64Data = event.target.result.split(',')[1];
+                
+                formData.append('fileData', base64Data);
+                formData.append('mimeType', file.type);
+                formData.append('fileName', file.name);
+                
+                // Kirim form (setelah gambar dibaca)
+                KirimKeServer(formData);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // Jika tidak ada foto (Opsional), langsung kirim
+            KirimKeServer(formData);
+        }
+    });
+
+    // Fungsi komunikasi (Fetch) ke Server Google
+    function KirimKeServer(formData) {
+        btnKirim.innerHTML = "Menyimpan ke Database... 💾";
+        
+        fetch(scriptURL, { method: 'POST', body: formData })
             .then(response => response.json())
             .then(json => {
                 if(json.result === 'success'){
                     pesanLapor.innerHTML = `✅ <b>Berhasil!</b><br>Laporan Anda telah diterima.<br><br>Simpan Nomor Tiket Anda untuk mengecek status:<br><div class="tiket-big">${json.tiket}</div><br>Silakan salin atau screenshot nomor di atas.`;
                     pesanLapor.classList.add("sukses");
                     form.reset();
+                    fileInput.value = ""; // Reset input file
                 } else { throw new Error('Error System'); }
                 pesanLapor.style.display = "block";
                 btnKirim.innerHTML = "Kirim Laporan Sekarang";
@@ -153,9 +200,9 @@
                 btnKirim.innerHTML = "Kirim Laporan Sekarang";
                 btnKirim.disabled = false;
             });
-    });
+    }
 
-    // Fungsi Cek Status Laporan
+    // Fungsi Cek Status Laporan (Tetap sama)
     function cekStatus() {
         const tiket = document.getElementById('inputTiket').value.trim();
         const btnCek = document.getElementById('btnCek');
@@ -167,7 +214,6 @@
         btnCek.disabled = true;
         pesanCek.style.display = "none";
 
-        // Memanggil GAS dengan parameter action=cek
         fetch(scriptURL + "?action=cek&tiket=" + encodeURIComponent(tiket))
             .then(response => response.json())
             .then(json => {
