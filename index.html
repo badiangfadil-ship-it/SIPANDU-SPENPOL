@@ -4,83 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIPANDU SPENPOL - SMPN 1 Poli-Polia</title>
-    <!-- Font Inter dari Google -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #0c4a6e;
-            --secondary-color: #0284c7;
-            --bg-color: #f0f4f8;
-            --text-main: #334155;
-            --border-color: #cbd5e1;
-        }
-
-        body { 
-            font-family: 'Inter', sans-serif; 
-            padding: 20px; 
-            background-color: var(--bg-color); 
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .container { 
-            width: 100%;
-            max-width: 550px; 
-            background: white; 
-            padding: 40px 30px; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
-            box-sizing: border-box;
-        }
-
-        .header-teks { 
-            text-align: center; 
-            margin-bottom: 30px; 
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 20px;
-        }
-
-        .logo-sekolah {
-            width: 100px;
-            height: auto;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-        }
-
-        .header-teks h2 { margin: 0; color: var(--primary-color); font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
-        .header-teks p { margin: 8px 0 0 0; color: #64748b; font-size: 15px; line-height: 1.5; }
-
+        :root { --primary-color: #0c4a6e; --secondary-color: #0284c7; --bg-color: #f0f4f8; --text-main: #334155; --border-color: #cbd5e1; }
+        body { font-family: 'Inter', sans-serif; padding: 20px; background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { width: 100%; max-width: 550px; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); box-sizing: border-box; }
+        .header-teks { text-align: center; margin-bottom: 20px; }
+        .logo-sekolah { width: 90px; height: auto; margin-bottom: 10px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+        .header-teks h2 { margin: 0; color: var(--primary-color); font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+        .header-teks p { margin: 8px 0 0 0; color: #64748b; font-size: 14px; }
+        
+        /* Navigasi Tab Menu */
+        .tab-menu { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; font-weight: 600; color: #64748b; cursor: pointer; border-radius: 8px; font-size: 14px; transition: 0.3s; }
+        .tab-btn.aktif { background: var(--primary-color); color: white; }
+        
+        /* Form & Input */
         label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--primary-color); font-size: 14px; }
-        .form-group { margin-bottom: 20px; }
-
-        input, select, textarea { 
-            width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); 
-            border-radius: 8px; box-sizing: border-box; font-family: 'Inter', sans-serif;
-            font-size: 15px; transition: all 0.3s ease; background-color: #f8fafc;
-        }
+        .form-group { margin-bottom: 15px; }
+        input, select, textarea { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-family: 'Inter', sans-serif; font-size: 15px; background-color: #f8fafc; transition: 0.3s; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--secondary-color); background-color: #ffffff; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+        button.btn-submit { width: 100%; padding: 14px; background-color: var(--secondary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; margin-top: 10px; transition: 0.3s; }
+        button.btn-submit:hover { background-color: var(--primary-color); }
         
-        input:focus, select:focus, textarea:focus {
-            outline: none; border-color: var(--secondary-color); background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-        }
-
-        button { 
-            width: 100%; padding: 14px; background-color: var(--secondary-color); color: white; 
-            border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px;
-            transition: background-color 0.3s ease, transform 0.1s ease; margin-top: 10px;
-        }
+        /* Hasil Notifikasi */
+        .notif-box { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 14px; display: none; }
+        .sukses { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; text-align: center;}
+        .error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; text-align: center;}
+        .hasil-cek { background-color: #f8fafc; border: 1px solid var(--border-color); }
         
-        button:hover { background-color: var(--primary-color); }
-        button:active { transform: scale(0.98); }
-
-        #pesan { margin-top: 20px; font-weight: 600; text-align: center; display: none; padding: 15px; border-radius: 8px; font-size: 14px; }
-        .pesan-sukses { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-        .pesan-error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+        .tiket-big { font-size: 24px; font-weight: bold; color: var(--primary-color); margin: 10px 0; padding: 10px; background: white; border-radius: 5px; border: 2px dashed var(--secondary-color); display: inline-block; letter-spacing: 1px;}
+        
         .footer { text-align: center; margin-top: 25px; font-size: 12px; color: #94a3b8; }
+        .sembunyi { display: none; }
     </style>
 </head>
 <body>
@@ -91,83 +47,157 @@
         <h2>SIPANDU SPENPOL</h2>
         <p>Sistem Informasi dan Pengaduan Terpadu<br>SMP Negeri 1 Poli-Polia</p>
     </div>
-    
-    <form id="formPengaduan">
-        <div class="form-group">
-            <label>Nama Lengkap (Boleh disamarkan):</label>
-            <input type="text" name="Nama" placeholder="Contoh: Budi / Hamba Allah" required>
-        </div>
 
-        <div class="form-group">
-            <label>Nomor HP / WhatsApp (Aktif):</label>
-            <input type="text" name="Kontak" placeholder="Contoh: 08123456789" required>
-        </div>
-
-        <div class="form-group">
-            <label>Kategori Layanan / Pengaduan:</label>
-            <select name="Kategori" required>
-                <option value="" disabled selected>-- Pilih Kategori Layanan --</option>
-                <option value="Penerimaan & Administrasi">1. Layanan Penerimaan dan Administrasi Murid</option>
-                <option value="Akademik">2. Layanan Akademik</option>
-                <option value="Kesiswaan">3. Layanan Kesiswaan</option>
-                <option value="Dokumen & Alumni">4. Layanan Dokumen Pendidikan dan Alumni</option>
-                <option value="Informasi & Pengaduan">5. Layanan Informasi dan Pengaduan</option>
-                <option value="Penunjang Pendidikan">6. Layanan Penunjang Pendidikan</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Detail Laporan / Permintaan:</label>
-            <textarea name="Isi Laporan" rows="5" placeholder="Tuliskan secara jelas dan detail laporan atau permintaan informasi Anda di sini..." required></textarea>
-        </div>
-
-        <button type="submit" id="btnSubmit">Kirim Laporan Sekarang</button>
-    </form>
-    
-    <div id="pesan"></div>
-
-    <div class="footer">
-        &copy; 2026 SMP Negeri 1 Poli-Polia.<br>Semua laporan dilindungi kerahasiaannya.
+    <!-- Navigasi Menu -->
+    <div class="tab-menu">
+        <button class="tab-btn aktif" id="btnTabLapor" onclick="gantiTab('lapor')">✍️ Buat Laporan</button>
+        <button class="tab-btn" id="btnTabCek" onclick="gantiTab('cek')">🔍 Cek Status Laporan</button>
     </div>
+    
+    <!-- HALAMAN 1: FORMULIR LAPORAN -->
+    <div id="halamanLapor">
+        <form id="formPengaduan">
+            <div class="form-group">
+                <label>Nama Lengkap (Boleh disamarkan):</label>
+                <input type="text" name="Nama" required>
+            </div>
+            <div class="form-group">
+                <label>Nomor HP / WhatsApp:</label>
+                <input type="text" name="Kontak" required>
+            </div>
+            <div class="form-group">
+                <label>Kategori Layanan:</label>
+                <select name="Kategori" required>
+                    <option value="" disabled selected>-- Pilih Kategori --</option>
+                    <option value="Penerimaan & Administrasi">1. Penerimaan & Administrasi Murid</option>
+                    <option value="Akademik">2. Akademik</option>
+                    <option value="Kesiswaan">3. Kesiswaan</option>
+                    <option value="Dokumen & Alumni">4. Dokumen Pendidikan & Alumni</option>
+                    <option value="Informasi & Pengaduan">5. Informasi & Pengaduan</option>
+                    <option value="Penunjang Pendidikan">6. Penunjang Pendidikan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Detail Laporan / Permintaan:</label>
+                <textarea name="Isi Laporan" rows="4" required></textarea>
+            </div>
+            <button type="submit" id="btnKirim" class="btn-submit">Kirim Laporan Sekarang</button>
+        </form>
+        <div id="pesanLapor" class="notif-box"></div>
+    </div>
+
+    <!-- HALAMAN 2: CEK STATUS -->
+    <div id="halamanCek" class="sembunyi">
+        <div class="form-group">
+            <label>Masukkan Nomor Tiket (Resi) Anda:</label>
+            <input type="text" id="inputTiket" placeholder="Contoh: SPL-202681-4592" required>
+        </div>
+        <button onclick="cekStatus()" id="btnCek" class="btn-submit">Lacak Laporan</button>
+        
+        <div id="pesanCek" class="notif-box hasil-cek">
+            <!-- Hasil pencarian akan muncul di sini -->
+        </div>
+    </div>
+
+    <div class="footer">&copy; 2026 SMP Negeri 1 Poli-Polia.</div>
 </div>
 
 <script>
-    // PERHATIAN: SAAT MENGGANTI TEKS DI BAWAH, PASTIKAN TANDA KUTIP (') TIDAK IKUT TERHAPUS!
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxgFCItrhJf-u6tWTnnPF90d90sNGkBA-s3v4pa0Lwt31CtmfhDJOwgHx-nCa5h63SqcA/exec';
+    // MASUKKAN URL GOOGLE SCRIPT TERBARU ANDA DI SINI
+    const scriptURL = 'https://script.google.com/macros/s/AKfycby6eZy85aUT57_aZSykurrupK2PYijYosRzSxMB1mjjfum9SihTERuC1a6c_LiU3_N3RA/exec';
     
+    // Fungsi Pindah Tab
+    function gantiTab(tab) {
+        document.getElementById('halamanLapor').classList.add('sembunyi');
+        document.getElementById('halamanCek').classList.add('sembunyi');
+        document.getElementById('btnTabLapor').classList.remove('aktif');
+        document.getElementById('btnTabCek').classList.remove('aktif');
+
+        if(tab === 'lapor') {
+            document.getElementById('halamanLapor').classList.remove('sembunyi');
+            document.getElementById('btnTabLapor').classList.add('aktif');
+        } else {
+            document.getElementById('halamanCek').classList.remove('sembunyi');
+            document.getElementById('btnTabCek').classList.add('aktif');
+        }
+    }
+
+    // Fungsi Kirim Laporan
     const form = document.forms['formPengaduan'];
-    const btnSubmit = document.getElementById('btnSubmit');
-    const pesan = document.getElementById('pesan');
+    const btnKirim = document.getElementById('btnKirim');
+    const pesanLapor = document.getElementById('pesanLapor');
 
     form.addEventListener('submit', e => {
         e.preventDefault();
-        
-        btnSubmit.innerHTML = "Memproses Pengiriman... ⏳";
-        btnSubmit.style.opacity = "0.7";
-        btnSubmit.disabled = true;
-        pesan.style.display = "none";
-        pesan.className = "";
+        btnKirim.innerHTML = "Memproses... ⏳";
+        btnKirim.disabled = true;
+        pesanLapor.style.display = "none";
+        pesanLapor.className = "notif-box";
 
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => {
-                pesan.innerHTML = "✅ Laporan berhasil dikirim! Terima kasih atas partisipasi Anda membangun sekolah kita.";
-                pesan.classList.add("pesan-sukses");
-                pesan.style.display = "block";
-                form.reset();
-                kembalikanTombol();
+            .then(response => response.json())
+            .then(json => {
+                if(json.result === 'success'){
+                    pesanLapor.innerHTML = `✅ <b>Berhasil!</b><br>Laporan Anda telah diterima.<br><br>Simpan Nomor Tiket Anda untuk mengecek status:<br><div class="tiket-big">${json.tiket}</div><br>Silakan salin atau screenshot nomor di atas.`;
+                    pesanLapor.classList.add("sukses");
+                    form.reset();
+                } else { throw new Error('Error System'); }
+                pesanLapor.style.display = "block";
+                btnKirim.innerHTML = "Kirim Laporan Sekarang";
+                btnKirim.disabled = false;
             })
             .catch(error => {
-                pesan.innerHTML = "❌ Terjadi kesalahan! Pastikan koneksi internet stabil dan coba lagi.";
-                pesan.classList.add("pesan-error");
-                pesan.style.display = "block";
-                kembalikanTombol();
+                pesanLapor.innerHTML = "❌ Terjadi kesalahan pengiriman. Coba lagi.";
+                pesanLapor.classList.add("error");
+                pesanLapor.style.display = "block";
+                btnKirim.innerHTML = "Kirim Laporan Sekarang";
+                btnKirim.disabled = false;
             });
     });
 
-    function kembalikanTombol() {
-        btnSubmit.innerHTML = "Kirim Laporan Sekarang";
-        btnSubmit.style.opacity = "1";
-        btnSubmit.disabled = false;
+    // Fungsi Cek Status Laporan
+    function cekStatus() {
+        const tiket = document.getElementById('inputTiket').value.trim();
+        const btnCek = document.getElementById('btnCek');
+        const pesanCek = document.getElementById('pesanCek');
+
+        if(tiket === "") { alert("Mohon masukkan nomor tiket!"); return; }
+
+        btnCek.innerHTML = "Mencari... ⏳";
+        btnCek.disabled = true;
+        pesanCek.style.display = "none";
+
+        // Memanggil GAS dengan parameter action=cek
+        fetch(scriptURL + "?action=cek&tiket=" + encodeURIComponent(tiket))
+            .then(response => response.json())
+            .then(json => {
+                if(json.result === 'success'){
+                    let status = json.data['Status'] || "Menunggu";
+                    let warna = status.toLowerCase() === 'selesai' ? '#166534' : '#854d0e';
+                    
+                    pesanCek.innerHTML = `
+                        <div style="border-bottom:1px solid #ccc; padding-bottom:10px; margin-bottom:10px;">
+                            <strong>Status Laporan:</strong><br>
+                            <span style="color:${warna}; font-weight:bold; font-size:18px;">${status}</span>
+                        </div>
+                        <div>
+                            <strong>Tanggapan / Tindak Lanjut Sekolah:</strong><br>
+                            <p style="margin-top:5px; line-height:1.5;">${json.data['Tindak Lanjut']}</p>
+                        </div>
+                    `;
+                } else {
+                    pesanCek.innerHTML = "❌ Nomor tiket tidak ditemukan. Pastikan Anda mengetik dengan benar.";
+                }
+                pesanCek.style.display = "block";
+                btnCek.innerHTML = "Lacak Laporan";
+                btnCek.disabled = false;
+            })
+            .catch(err => {
+                pesanCek.innerHTML = "❌ Gagal memuat data. Periksa internet Anda.";
+                pesanCek.style.display = "block";
+                btnCek.innerHTML = "Lacak Laporan";
+                btnCek.disabled = false;
+            });
     }
 </script>
 
