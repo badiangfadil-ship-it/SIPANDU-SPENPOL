@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIPANDU SPENPOL - SMPN 1 Poli-Polia</title>
-    <!-- Menggunakan font modern dari Google Fonts -->
+    <!-- Font Inter dari Google -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0c4a6e; /* Biru gelap elegan khas instansi */
-            --secondary-color: #0284c7; /* Biru cerah untuk tombol */
-            --bg-color: #f0f4f8; /* Abu-abu kebiruan untuk background */
+            --primary-color: #0c4a6e;
+            --secondary-color: #0284c7;
+            --bg-color: #f0f4f8;
             --text-main: #334155;
             --border-color: #cbd5e1;
         }
@@ -51,101 +51,40 @@
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
         }
 
-        .header-teks h2 { 
-            margin: 0; 
-            color: var(--primary-color); 
-            font-size: 26px; 
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
+        .header-teks h2 { margin: 0; color: var(--primary-color); font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+        .header-teks p { margin: 8px 0 0 0; color: #64748b; font-size: 15px; line-height: 1.5; }
 
-        .header-teks p { 
-            margin: 8px 0 0 0; 
-            color: #64748b; 
-            font-size: 15px; 
-            line-height: 1.5;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--primary-color);
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--primary-color); font-size: 14px; }
+        .form-group { margin-bottom: 20px; }
 
         input, select, textarea { 
-            width: 100%; 
-            padding: 12px 15px; 
-            border: 1px solid var(--border-color); 
-            border-radius: 8px; 
-            box-sizing: border-box; 
-            font-family: 'Inter', sans-serif;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            background-color: #f8fafc;
+            width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); 
+            border-radius: 8px; box-sizing: border-box; font-family: 'Inter', sans-serif;
+            font-size: 15px; transition: all 0.3s ease; background-color: #f8fafc;
         }
-
-        /* Efek ketika kolom di-klik (fokus) */
         input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-            background-color: #ffffff;
+            outline: none; border-color: var(--secondary-color); background-color: #ffffff;
             box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
         }
 
         button { 
-            width: 100%; 
-            padding: 14px; 
-            background-color: var(--secondary-color); 
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: 600; 
-            font-size: 16px;
-            transition: background-color 0.3s ease, transform 0.1s ease;
-            margin-top: 10px;
+            width: 100%; padding: 14px; background-color: var(--secondary-color); color: white; 
+            border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.1s ease; margin-top: 10px;
         }
+        button:hover { background-color: var(--primary-color); }
+        button:active { transform: scale(0.98); }
 
-        button:hover { 
-            background-color: var(--primary-color); 
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        #pesan { 
-            margin-top: 20px; 
-            font-weight: 600; 
-            text-align: center; 
-            display: none; 
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-
+        #pesan { margin-top: 20px; font-weight: 600; text-align: center; display: none; padding: 15px; border-radius: 8px; font-size: 14px; }
         .pesan-sukses { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
         .pesan-error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-
-        .footer {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 12px;
-            color: #94a3b8;
-        }
+        .footer { text-align: center; margin-top: 25px; font-size: 12px; color: #94a3b8; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header-teks">
-        <!-- Logo Aplikasi disematkan di sini -->
         <img src="https://cdn.phototourl.com/member/2026-07-21-0de133fa-2526-4239-ad76-cc617208cc99.png" alt="Logo SMPN 1 Poli-Polia" class="logo-sekolah">
         <h2>SIPANDU SPENPOL</h2>
         <p>Sistem Informasi dan Pengaduan Terpadu<br>SMP Negeri 1 Poli-Polia</p>
@@ -163,14 +102,15 @@
         </div>
 
         <div class="form-group">
-            <label>Kategori Laporan / Informasi:</label>
+            <label>Kategori Layanan / Pengaduan:</label>
             <select name="Kategori" required>
-                <option value="" disabled selected>-- Pilih Kategori --</option>
-                <option value="Fasilitas">Fasilitas Sekolah (Gedung, Toilet, Kelas)</option>
-                <option value="Pelayanan">Pelayanan Guru / Staf TU</option>
-                <option value="Bullying/Keamanan">Keamanan & Bullying</option>
-                <option value="Info Akademik">Informasi PPDB / Akademik</option>
-                <option value="Lainnya">Lainnya</option>
+                <option value="" disabled selected>-- Pilih Kategori Layanan --</option>
+                <option value="Penerimaan & Administrasi">1. Layanan Penerimaan dan Administrasi Murid</option>
+                <option value="Akademik">2. Layanan Akademik</option>
+                <option value="Kesiswaan">3. Layanan Kesiswaan</option>
+                <option value="Dokumen & Alumni">4. Layanan Dokumen Pendidikan dan Alumni</option>
+                <option value="Informasi & Pengaduan">5. Layanan Informasi dan Pengaduan</option>
+                <option value="Penunjang Pendidikan">6. Layanan Penunjang Pendidikan</option>
             </select>
         </div>
 
@@ -190,8 +130,9 @@
 </div>
 
 <script>
-    // PASTIKAN MENGGANTI TEKS DI BAWAH DENGAN URL WEB APP GOOGLE SCRIPT YANG ASLI
+    // MASUKKAN URL WEB APP GOOGLE APPS SCRIPT ANDA DI SINI
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyDmPFw0ECrwVrQWw8jtA79-HOP7aqpUcQz3R7UNNgOS982FuTb9wdMsot7PCb6S9PwJQ/exec';
+    
     const form = document.forms['formPengaduan'];
     const btnSubmit = document.getElementById('btnSubmit');
     const pesan = document.getElementById('pesan');
@@ -199,7 +140,6 @@
     form.addEventListener('submit', e => {
         e.preventDefault();
         
-        // Animasi loading saat dikirim
         btnSubmit.innerHTML = "Memproses Pengiriman... ⏳";
         btnSubmit.style.opacity = "0.7";
         btnSubmit.disabled = true;
