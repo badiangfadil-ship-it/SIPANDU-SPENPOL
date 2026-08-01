@@ -4,50 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - SIPANDU SPENPOL</title>
-    <!-- Font Inter dari Google -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #0c4a6e;
-            --secondary: #0284c7;
-            --bg-color: #f1f5f9;
-            --text-main: #334155;
-            --border: #e2e8f0;
-        }
-
+        :root { --primary: #0c4a6e; --secondary: #0284c7; --bg-color: #f1f5f9; --text-main: #334155; --border: #e2e8f0; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 20px; }
         .container { max-width: 1000px; margin: auto; }
-        
         .header { display: flex; align-items: center; justify-content: space-between; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
         .header-title { display: flex; align-items: center; gap: 15px; }
         .header img { width: 60px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
         .header h1 { margin: 0; font-size: 22px; color: var(--primary); }
         .header p { margin: 0; font-size: 14px; color: #64748b; }
-        
         .header-actions { display: flex; gap: 10px; }
-        .btn-sheet { background: #10b981; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; transition: background 0.3s; }
-        .btn-sheet:hover { background: #059669; }
-        .btn-print { background: #475569; color: white; padding: 10px 15px; border: none; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; transition: background 0.3s; }
-        .btn-print:hover { background: #334155; }
-
+        .btn-sheet { background: #10b981; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; }
+        .btn-print { background: #475569; color: white; padding: 10px 15px; border: none; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; }
         .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; }
         .stat-card h3 { margin: 0 0 10px 0; color: #64748b; font-size: 14px; }
         .stat-card span { font-size: 28px; font-weight: 700; color: var(--primary); }
-
         .table-container { background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow-x: auto; padding: 20px; }
         table { width: 100%; border-collapse: collapse; min-width: 800px; }
         th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
         th { background-color: #f8fafc; color: var(--primary); font-weight: 600; white-space: nowrap; }
         tr:hover { background-color: #f1f5f9; }
-        
         .badge { padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
         .badge-menunggu { background: #fef08a; color: #854d0e; }
         .badge-selesai { background: #bbf7d0; color: #166534; }
-
         #loading { text-align: center; padding: 40px; font-weight: 600; color: var(--secondary); }
-
-        /* PENGATURAN CETAK PDF */
+        
         @media print {
             body { background-color: white; padding: 0; }
             .container { max-width: 100%; box-shadow: none; padding: 0; }
@@ -77,8 +60,8 @@
         </div>
         <div class="header-actions">
             <button onclick="window.print()" class="btn-print">🖨️ Cetak PDF</button>
-            <!-- MASUKKAN LINK GOOGLE SHEETS ANDA DI SINI UNTUK TOMBOL EDIT -->
-            <a href="https://docs.google.com/spreadsheets/d/1C5TW3PnIM2KVYvZ36sv4OF_784Q0GeO-NKUOeL9deKw/edit?usp=sharing">📝 Edit Status</a>
+            <!-- GANTI DENGAN LINK GOOGLE SHEETS ANDA -->
+            <a href="https://docs.google.com/spreadsheets/d/1C5TW3PnIM2KVYvZ36sv4OF_784Q0GeO-NKUOeL9deKw/edit?usp=sharing" target="_blank" class="btn-sheet">📝 Edit Status</a>
         </div>
     </div>
 
@@ -110,7 +93,7 @@
                 </tr>
             </thead>
             <tbody id="data-body">
-                <!-- Data akan dimasukkan ke sini oleh JavaScript -->
+                <!-- Data akan masuk otomatis -->
             </tbody>
         </table>
         <div id="loading">Memuat data dari server... ⏳</div>
@@ -118,7 +101,7 @@
 </div>
 
 <script>
-    // MASUKKAN URL WEB APP GOOGLE APPS SCRIPT ANDA DI SINI (Sama dengan di index.html)
+    // MASUKKAN URL GOOGLE SCRIPT DI SINI JUGA (Sama Persis dengan Form!)
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyDmPFw0ECrwVrQWw8jtA79-HOP7aqpUcQz3R7UNNgOS982FuTb9wdMsot7PCb6S9PwJQ/exec';
     
     async function muatData() {
@@ -130,40 +113,42 @@
                 const data = json.data;
                 const tbody = document.getElementById('data-body');
                 let html = '';
-                
-                let jmlMenunggu = 0;
-                let jmlSelesai = 0;
+                let jmlMenunggu = 0; let jmlSelesai = 0;
 
-                data.forEach(row => {
-                    let status = row.Status || 'Menunggu';
-                    let badgeClass = status.toLowerCase() === 'selesai' ? 'badge-selesai' : 'badge-menunggu';
-                    
-                    if(status.toLowerCase() === 'selesai') jmlSelesai++;
-                    else jmlMenunggu++;
+                if (data.length === 0) {
+                    html = '<tr><td colspan="6" style="text-align:center;">Belum ada laporan masuk.</td></tr>';
+                } else {
+                    data.forEach(row => {
+                        let status = row.Status || 'Menunggu';
+                        let badgeClass = status.toLowerCase() === 'selesai' ? 'badge-selesai' : 'badge-menunggu';
+                        if(status.toLowerCase() === 'selesai') jmlSelesai++; else jmlMenunggu++;
 
-                    html += `
-                        <tr>
-                            <td>${row.Timestamp}</td>
-                            <td><strong>${row.Nama}</strong></td>
-                            <td>${row.Kontak}</td>
-                            <td>${row.Kategori}</td>
-                            <td style="max-width: 300px; line-height: 1.4;">${row['Isi Laporan']}</td>
-                            <td><span class="badge ${badgeClass}">${status}</span></td>
-                        </tr>
-                    `;
-                });
+                        html += `
+                            <tr>
+                                <td>${row.Timestamp || '-'}</td>
+                                <td><strong>${row.Nama || '-'}</strong></td>
+                                <td>${row.Kontak || '-'}</td>
+                                <td>${row.Kategori || '-'}</td>
+                                <td style="max-width: 300px; line-height: 1.4;">${row['Isi Laporan'] || '-'}</td>
+                                <td><span class="badge ${badgeClass}">${status}</span></td>
+                            </tr>
+                        `;
+                    });
+                }
 
                 tbody.innerHTML = html;
                 document.getElementById('loading').style.display = 'none';
                 
-                // Update Statistik
                 document.getElementById('total-laporan').innerText = data.length;
                 document.getElementById('total-menunggu').innerText = jmlMenunggu;
                 document.getElementById('total-selesai').innerText = jmlSelesai;
+            } else {
+                throw new Error(json.error);
             }
         } catch (error) {
-            document.getElementById('loading').innerHTML = '❌ Gagal memuat data. Periksa koneksi atau URL Script.';
+            document.getElementById('loading').innerHTML = '❌ Gagal memuat data. Pastikan Akses "Anyone" aktif.';
             document.getElementById('loading').style.color = 'red';
+            console.error('Error fetching data:', error);
         }
     }
 
