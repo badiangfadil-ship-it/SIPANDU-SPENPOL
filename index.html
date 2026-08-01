@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Pengaduan SMPN 1 Poli-Polia</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .container { max-width: 500px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: auto; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        #pesan { margin-top: 15px; font-weight: bold; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Lapor Kepala Sekolah!</h2>
+    <p>Sistem Pengaduan SMPN 1 Poli-Polia</p>
+    
+    <!-- Form dihubungkan dengan JavaScript -->
+    <form id="formPengaduan">
+        <label>Nama Lengkap (Boleh disamarkan):</label>
+        <input type="text" name="Nama" required>
+
+        <label>Nomor HP / WhatsApp:</label>
+        <input type="text" name="Kontak" required>
+
+        <label>Kategori Aduan / Informasi:</label>
+        <select name="Kategori" required>
+            <option value="Fasilitas">Fasilitas Sekolah</option>
+            <option value="Pelayanan">Pelayanan Guru/Staf</option>
+            <option value="Bullying/Keamanan">Keamanan & Bullying</option>
+            <option value="Info Akademik">Informasi Akademik</option>
+        </select>
+
+        <label>Isi Laporan / Permintaan:</label>
+        <textarea name="Isi Laporan" rows="4" required></textarea>
+
+        <button type="submit" id="btnSubmit">Kirim Laporan</button>
+    </form>
+    
+    <div id="pesan"></div>
+</div>
+
+<script>
+    // GANTI URL DI BAWAH DENGAN URL WEB APP DARI GOOGLE APPS SCRIPT ANDA
+    const scriptURL = 'URL_WEB_APP_GOOGLE_SCRIPT_ANDA_DISINI';
+    const form = document.forms['formPengaduan'];
+    const btnSubmit = document.getElementById('btnSubmit');
+    const pesan = document.getElementById('pesan');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        btnSubmit.innerHTML = "Mengirim...";
+        btnSubmit.disabled = true;
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                pesan.innerHTML = "<span style='color:green;'>Laporan berhasil dikirim! Terima kasih.</span>";
+                pesan.style.display = "block";
+                form.reset();
+                btnSubmit.innerHTML = "Kirim Laporan";
+                btnSubmit.disabled = false;
+            })
+            .catch(error => {
+                pesan.innerHTML = "<span style='color:red;'>Terjadi kesalahan! Gagal mengirim laporan.</span>";
+                btnSubmit.innerHTML = "Kirim Laporan";
+                btnSubmit.disabled = false;
+            });
+    });
+</script>
+
+</body>
+</html>
