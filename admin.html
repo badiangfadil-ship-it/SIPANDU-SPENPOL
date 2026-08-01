@@ -15,14 +15,15 @@
         .header h1 { margin: 0; font-size: 22px; color: var(--primary); }
         .header p { margin: 0; font-size: 14px; color: #64748b; }
         .header-actions { display: flex; gap: 10px; }
-        .btn-sheet { background: #10b981; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; }
+        .btn-sheet { background: #10b981; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px; transition: 0.3s;}
+        .btn-sheet:hover { background: #059669; }
         .btn-print { background: #475569; color: white; padding: 10px 15px; border: none; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; }
         .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
         .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; }
         .stat-card h3 { margin: 0 0 10px 0; color: #64748b; font-size: 14px; }
         .stat-card span { font-size: 28px; font-weight: 700; color: var(--primary); }
         .table-container { background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow-x: auto; padding: 20px; }
-        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; }
         th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
         th { background-color: #f8fafc; color: var(--primary); font-weight: 600; white-space: nowrap; }
         tr:hover { background-color: #f1f5f9; }
@@ -60,7 +61,7 @@
         </div>
         <div class="header-actions">
             <button onclick="window.print()" class="btn-print">🖨️ Cetak PDF</button>
-            <!-- GANTI DENGAN LINK GOOGLE SHEETS ANDA -->
+            <!-- MASUKKAN LINK GOOGLE SHEETS ANDA DI SINI UNTUK TOMBOL EDIT -->
             <a href="https://docs.google.com/spreadsheets/d/1C5TW3PnIM2KVYvZ36sv4OF_784Q0GeO-NKUOeL9deKw/edit?usp=sharing" target="_blank" class="btn-sheet">📝 Edit Status</a>
         </div>
     </div>
@@ -89,6 +90,8 @@
                     <th>Kontak</th>
                     <th>Kategori Layanan</th>
                     <th>Isi Laporan</th>
+                    <!-- INI KOLOM BARU UNTUK BUKTI LAMPIRAN -->
+                    <th>Bukti Lampiran</th> 
                     <th>Status</th>
                 </tr>
             </thead>
@@ -101,8 +104,8 @@
 </div>
 
 <script>
-    // MASUKKAN URL GOOGLE SCRIPT DI SINI JUGA (Sama Persis dengan Form!)
-    const scriptURL = 'https://script.google.com/macros/s/AKfycby6eZy85aUT57_aZSykurrupK2PYijYosRzSxMB1mjjfum9SihTERuC1a6c_LiU3_N3RA/exec';
+    // MASUKKAN URL WEB APP GOOGLE SCRIPT ANDA DI SINI
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxHGswQ_Rz2URF7tGFZHP4YdIVGzo-H_zPdMm4N1nTe2h75avx_YvXRTFiXiGNSMykIAg/exec';
     
     async function muatData() {
         try {
@@ -116,12 +119,18 @@
                 let jmlMenunggu = 0; let jmlSelesai = 0;
 
                 if (data.length === 0) {
-                    html = '<tr><td colspan="6" style="text-align:center;">Belum ada laporan masuk.</td></tr>';
+                    html = '<tr><td colspan="7" style="text-align:center;">Belum ada laporan masuk.</td></tr>';
                 } else {
                     data.forEach(row => {
                         let status = row.Status || 'Menunggu';
                         let badgeClass = status.toLowerCase() === 'selesai' ? 'badge-selesai' : 'badge-menunggu';
                         if(status.toLowerCase() === 'selesai') jmlSelesai++; else jmlMenunggu++;
+                        
+                        // LOGIKA UNTUK MENAMPILKAN TOMBOL FOTO JIKA ADA
+                        let linkFoto = row['Bukti Lampiran'];
+                        let tombolBukti = linkFoto && linkFoto.trim() !== "" 
+                            ? `<a href="${linkFoto}" target="_blank" style="color:#0284c7; text-decoration:none; font-weight:bold;">🖼️ Lihat Foto</a>` 
+                            : '<span style="color:#94a3b8; font-style:italic;">Tidak ada</span>';
 
                         html += `
                             <tr>
@@ -130,6 +139,8 @@
                                 <td>${row.Kontak || '-'}</td>
                                 <td>${row.Kategori || '-'}</td>
                                 <td style="max-width: 300px; line-height: 1.4;">${row['Isi Laporan'] || '-'}</td>
+                                <!-- INI ISI BARIS KOLOM BUKTI LAMPIRAN -->
+                                <td>${tombolBukti}</td>
                                 <td><span class="badge ${badgeClass}">${status}</span></td>
                             </tr>
                         `;
@@ -146,7 +157,7 @@
                 throw new Error(json.error);
             }
         } catch (error) {
-            document.getElementById('loading').innerHTML = '❌ Gagal memuat data. Pastikan Akses "Anyone" aktif.';
+            document.getElementById('loading').innerHTML = '❌ Gagal memuat data. Periksa URL atau Otorisasi.';
             document.getElementById('loading').style.color = 'red';
             console.error('Error fetching data:', error);
         }
