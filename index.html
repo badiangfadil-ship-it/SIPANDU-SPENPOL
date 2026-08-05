@@ -6,14 +6,13 @@
     <title>SIPANDU SPENPOL - SMPN 1 Poli-Polia</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Gaya CSS sama seperti sebelumnya */
         :root { --primary-color: #0c4a6e; --secondary-color: #0284c7; --bg-color: #f0f4f8; --text-main: #334155; --border-color: #cbd5e1; }
         body { font-family: 'Inter', sans-serif; padding: 20px; background-color: var(--bg-color); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         .container { width: 100%; max-width: 550px; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); box-sizing: border-box; }
         .header-teks { text-align: center; margin-bottom: 20px; }
         .logo-sekolah { width: 90px; height: auto; margin-bottom: 10px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
         .header-teks h2 { margin: 0; color: var(--primary-color); font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
-        .header-teks p { margin: 8px 0 0 0; color: #64748b; font-size: 14px; }
+        .header-teks p { margin: 8px 0 0 0; color: #64748b; font-size: 14px; font-weight: 600;}
         
         .tab-menu { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
         .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; font-weight: 600; color: #64748b; cursor: pointer; border-radius: 8px; font-size: 14px; transition: 0.3s; }
@@ -25,8 +24,9 @@
         input[type="file"] { background-color: #fff; padding: 10px; border: 1px dashed var(--secondary-color); cursor: pointer; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--secondary-color); background-color: #ffffff; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
         
-        button.btn-submit { width: 100%; padding: 14px; background-color: var(--secondary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; margin-top: 10px; transition: 0.3s; }
+        button.btn-submit, button.btn-copy { width: 100%; padding: 14px; background-color: var(--secondary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px; margin-top: 10px; transition: 0.3s; }
         button.btn-submit:hover { background-color: var(--primary-color); }
+        button.btn-copy { background-color: #10b981; padding: 10px; font-size: 14px; margin-top: 5px; }
         
         .notif-box { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 14px; display: none; }
         .sukses { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; text-align: center;}
@@ -41,11 +41,9 @@
 
 <div class="container">
     <div class="header-teks">
-        <img src="https://cdn.phototourl.com/member/2026-07-21-0de133fa-2526-4239-ad76-cc617208cc99.png" alt="Logo SMPN 1 Poli-Polia" class="logo-sekolah">
+        <img src="https://cdn.phototourl.com/member/2026-07-21-0de133fa-2526-4239-ad76-cc617208cc99.png" alt="Logo" class="logo-sekolah">
         <h2>SIPANDU SPENPOL</h2>
-       <p style="font-weight: 600; color: #1e293b; font-size: 15px;">
-            Sistem Informasi dan Pengaduan Terpadu<br>SMP Negeri 1 Poli-Polia
-        </p>
+       <p>Sistem Informasi dan Pengaduan Terpadu<br>SMP Negeri 1 Poli-Polia</p>
     </div>
 
     <!-- Navigasi Menu -->
@@ -65,16 +63,32 @@
                 <label>Nomor HP / WhatsApp:</label>
                 <input type="text" name="Kontak" required>
             </div>
+            
+            <!-- FITUR BARU: KATEGORI PENGGUNA -->
+            <div class="form-group">
+                <label>Kategori Pengguna:</label>
+                <select name="Kategori Pengguna" required>
+                    <option value="" disabled selected>-- Pilih Kategori Anda --</option>
+                    <option value="Murid">Murid</option>
+                    <option value="Orang Tua/Wali">Orang Tua / Wali</option>
+                    <option value="Alumni">Alumni</option>
+                    <option value="Masyarakat">Masyarakat</option>
+                    <option value="Instansi Pemerintah">Instansi Pemerintah</option>
+                    <option value="Lembaga/Organisasi Mitra">Lembaga / Organisasi Mitra</option>
+                    <option value="Lainnya">Lainnya</option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <label>Kategori Layanan:</label>
                 <select name="Kategori" required>
-                    <option value="" disabled selected>-- Pilih Kategori --</option>
+                    <option value="" disabled selected>-- Pilih Kategori Layanan --</option>
                     <option value="Penerimaan & Administrasi">Penerimaan & Administrasi Murid</option>
                     <option value="Akademik">Akademik</option>
                     <option value="Kesiswaan">Kesiswaan</option>
                     <option value="Dokumen & Alumni">Dokumen Pendidikan & Alumni</option>
                     <option value="Informasi & Pengaduan">Informasi & Pengaduan</option>
-                    <option value="Penunjang Pendidikan">Penunjang Pendidikan</option>
+                    <option value="Fasilitas & Sarpras">Fasilitas & Sarpras</option>
                 </select>
             </div>
             <div class="form-group">
@@ -82,7 +96,6 @@
                 <textarea name="Isi Laporan" rows="4" required></textarea>
             </div>
             
-            <!-- TAMBAHAN: FITUR UPLOAD FOTO -->
             <div class="form-group">
                 <label>Lampirkan Foto Bukti (Opsional):</label>
                 <input type="file" id="inputFile" accept="image/*" style="font-size: 13px;">
@@ -107,13 +120,11 @@
     <div class="footer">
         &copy; 2026 SMP Negeri 1 Poli-Polia.<br>
         Semua laporan dilindungi kerahasiaannya.
-        <div style="margin-top: 10px; font-size: 11px; color: #cbd5e1;">
-            Designed & Developed by <b>Badiang</b>
-        </div>
+        <div style="margin-top: 10px; font-size: 11px; color: #cbd5e1;">Designed & Developed by <b>Badiang</b></div>
     </div>
 
 <script>
-    // MASUKKAN URL GOOGLE SCRIPT TERBARU ANDA DI SINI (Versi Baru)
+    // MASUKKAN URL GOOGLE SCRIPT (DEPLOYMENT BARU) ANDA DI SINI
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxHGswQ_Rz2URF7tGFZHP4YdIVGzo-H_zPdMm4N1nTe2h75avx_YvXRTFiXiGNSMykIAg/exec';
     
     // Fungsi Pindah Tab
@@ -132,7 +143,14 @@
         }
     }
 
-    // Fungsi Pengolahan Foto & Pengiriman Form
+    // Fungsi Salin Teks
+    function salinTiket(tiketId) {
+        navigator.clipboard.writeText(tiketId).then(() => {
+            alert("Nomor Tiket berhasil disalin: " + tiketId);
+        });
+    }
+
+    // Fungsi Pengolahan Form
     const form = document.forms['formPengaduan'];
     const btnKirim = document.getElementById('btnKirim');
     const pesanLapor = document.getElementById('pesanLapor');
@@ -140,6 +158,7 @@
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        
         btnKirim.innerHTML = "Memproses Pengiriman... ⏳";
         btnKirim.disabled = true;
         pesanLapor.style.display = "none";
@@ -147,14 +166,11 @@
 
         let formData = new FormData(form);
 
-        // Jika ada foto yang di-upload
         if (fileInput.files.length > 0) {
             btnKirim.innerHTML = "Mengunggah Foto... 📷";
             const file = fileInput.files[0];
-            
-            // Validasi ukuran (maksimal 2MB = 2000000 bytes)
             if(file.size > 2000000){
-                pesanLapor.innerHTML = "❌ Gagal: Ukuran foto terlalu besar (Maksimal 2MB).";
+                pesanLapor.innerHTML = "❌ Gagal: Ukuran foto maksimal 2MB.";
                 pesanLapor.classList.add("error");
                 pesanLapor.style.display = "block";
                 btnKirim.innerHTML = "Kirim Laporan Sekarang";
@@ -162,46 +178,49 @@
                 return;
             }
 
-            // Membaca file gambar mengubahnya jadi Base64
             let reader = new FileReader();
             reader.onload = function(event) {
-                // event.target.result berisi: "data:image/png;base64,iVBORw0KGgo..."
-                // Kita potong teks "data:image/...;base64," agar tersisa kode dasarnya saja
                 let base64Data = event.target.result.split(',')[1];
-                
                 formData.append('fileData', base64Data);
                 formData.append('mimeType', file.type);
                 formData.append('fileName', file.name);
-                
-                // Kirim form (setelah gambar dibaca)
                 KirimKeServer(formData);
             };
             reader.readAsDataURL(file);
         } else {
-            // Jika tidak ada foto (Opsional), langsung kirim
             KirimKeServer(formData);
         }
     });
 
-    // Fungsi komunikasi (Fetch) ke Server Google
+    // Fetch ke Server Google (Versi Aman)
     function KirimKeServer(formData) {
         btnKirim.innerHTML = "Menyimpan ke Database... 💾";
         
         fetch(scriptURL, { method: 'POST', body: formData })
-            .then(response => response.json())
+            .then(async response => {
+                const textData = await response.text();
+                try {
+                    return JSON.parse(textData);
+                } catch (err) {
+                    throw new Error("Server Google merespons dengan format salah.");
+                }
+            })
             .then(json => {
                 if(json.result === 'success'){
-                    pesanLapor.innerHTML = `✅ <b>Berhasil!</b><br>Laporan Anda telah diterima.<br><br>Simpan Nomor Tiket Anda untuk mengecek status:<br><div class="tiket-big">${json.tiket}</div><br>Silakan salin atau screenshot nomor di atas.`;
+                    pesanLapor.innerHTML = `✅ <b>Berhasil!</b><br>Laporan Anda telah diterima.<br><br>Simpan Nomor Tiket Anda:<br><div class="tiket-big" id="nomorBaru">${json.tiket}</div><br><button class="btn-copy" onclick="salinTiket('${json.tiket}')">📋 Salin Nomor Tiket</button>`;
                     pesanLapor.classList.add("sukses");
                     form.reset();
-                    fileInput.value = ""; // Reset input file
-                } else { throw new Error('Error System'); }
+                    fileInput.value = "";
+                } else { 
+                    throw new Error(json.error || 'Error System'); 
+                }
                 pesanLapor.style.display = "block";
                 btnKirim.innerHTML = "Kirim Laporan Sekarang";
                 btnKirim.disabled = false;
             })
             .catch(error => {
-                pesanLapor.innerHTML = "❌ Terjadi kesalahan pengiriman. Coba lagi.";
+                console.error(error);
+                pesanLapor.innerHTML = "⚠️ Terjadi gangguan koneksi, <b>NAMUN laporan Anda mungkin sudah tersimpan.</b><br>Silakan coba 'Cek Status Laporan' Anda beberapa saat lagi sebelum mencoba mengirim ulang.";
                 pesanLapor.classList.add("error");
                 pesanLapor.style.display = "block";
                 btnKirim.innerHTML = "Kirim Laporan Sekarang";
@@ -209,7 +228,7 @@
             });
     }
 
-    // Fungsi Cek Status Laporan (Tetap sama)
+    // Fungsi Cek Status
     function cekStatus() {
         const tiket = document.getElementById('inputTiket').value.trim();
         const btnCek = document.getElementById('btnCek');
@@ -226,20 +245,24 @@
             .then(json => {
                 if(json.result === 'success'){
                     let status = json.data['Status'] || "Menunggu";
-                    let warna = status.toLowerCase() === 'selesai' ? '#166534' : '#854d0e';
+                    let warna = '#854d0e'; 
+                    if(status === 'Selesai') warna = '#166534';
+                    else if(status === 'Diproses') warna = '#6b21a8';
+                    else if(status === 'Ditolak') warna = '#991b1b';
+                    else if(status === 'Diverifikasi') warna = '#1d4ed8';
                     
                     pesanCek.innerHTML = `
                         <div style="border-bottom:1px solid #ccc; padding-bottom:10px; margin-bottom:10px;">
                             <strong>Status Laporan:</strong><br>
-                            <span style="color:${warna}; font-weight:bold; font-size:18px;">${status}</span>
+                            <span style="color:${warna}; font-weight:bold; font-size:18px; padding: 5px 10px; background: #f1f5f9; border-radius: 5px; display: inline-block; margin-top:5px;">${status}</span>
                         </div>
-                        <div>
-                            <strong>Tanggapan / Tindak Lanjut Sekolah:</strong><br>
+                        <div style="background: #e0f2fe; padding: 10px; border-radius: 8px; border-left: 4px solid #0284c7;">
+                            <strong>Tanggapan Admin:</strong><br>
                             <p style="margin-top:5px; line-height:1.5;">${json.data['Tindak Lanjut']}</p>
                         </div>
                     `;
                 } else {
-                    pesanCek.innerHTML = "❌ Nomor tiket tidak ditemukan. Pastikan Anda mengetik dengan benar.";
+                    pesanCek.innerHTML = "❌ Nomor tiket tidak ditemukan.";
                 }
                 pesanCek.style.display = "block";
                 btnCek.innerHTML = "Lacak Laporan";
