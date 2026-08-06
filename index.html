@@ -28,6 +28,19 @@
         button.btn-submit:hover { background-color: var(--primary-color); }
         button.btn-copy { background-color: #10b981; padding: 10px; font-size: 14px; margin-top: 5px; }
         
+        /* --- CSS BARU UNTUK 2 TOMBOL MENU LINK --- */
+        .btn-link-group { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-survei, .btn-info { flex: 1; padding: 14px 10px; text-align: center; text-decoration: none; font-weight: 700; font-size: 12px; border-radius: 8px; color: #0f172a; transition: 0.3s; box-sizing: border-box; }
+        .btn-survei { background-color: #fbbf24; }
+        .btn-survei:hover { background-color: #f59e0b; }
+        .btn-info { background-color: #bef264; }
+        .btn-info:hover { background-color: #a3e635; }
+
+        @media (max-width: 480px) {
+            .btn-survei, .btn-info { font-size: 11px; padding: 12px 5px; }
+        }
+        /* ------------------------------------------ */
+
         .notif-box { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 14px; display: none; }
         .sukses { background-color: #dcfce7; color: #166534; border: 1px solid #bbf7d0; text-align: center;}
         .error { background-color: #fee2e2; color: #991b1b; border: 1px solid #fecaca; text-align: center;}
@@ -104,6 +117,14 @@
 
             <button type="submit" id="btnKirim" class="btn-submit">Kirim Laporan Sekarang</button>
         </form>
+
+        <!-- --- HTML BARU: 2 TOMBOL MENU LINK --- -->
+        <div class="btn-link-group">
+            <a href="https://badiangfadil-ship-it.github.io/APK-SKM-SPENPOL/" target="_blank" class="btn-survei">SURVEI KEPUASAN MASYARAKAT</a>
+            <a href="https://docs.google.com/drawings/d/1LWxfD7K9zsOcnxSKvFG-uW48ZDPUNSlvKUQpaiIVlio/edit?usp=sharing" target="_blank" class="btn-info">INFORMASI TERBARU</a>
+        </div>
+        <!-- --------------------------------------- -->
+
         <div id="pesanLapor" class="notif-box"></div>
     </div>
 
